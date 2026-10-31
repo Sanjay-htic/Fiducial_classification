@@ -1,0 +1,12 @@
+,,accuracy,accuracy,balanced_acc,balanced_acc,precision,precision,recall,recall,f1,f1,roc_auc,roc_auc,FP,FP,FN,FN
+,,mean,min,mean,min,mean,min,mean,min,mean,min,mean,min,mean,min,mean,min
+test,train,,,,,,,,,,,,,,,,
+out_of_range,real_only,0.8654,0.769,,,,,,,,,,,134.6,87,,
+out_of_range,real_plus_synthetic,0.998,0.996,,,,,,,,,,,2.0,0,,
+out_of_range,synthetic_only,0.9982,0.996,,,,,,,,,,,1.8,0,,
+real_noisy,real_only,0.9855,0.9586,0.9833,0.9461,0.9889,0.9553,0.9902,0.9839,0.9895,0.9694,0.9976,0.9888,5.0,0,4.4,2.0
+real_noisy,real_plus_synthetic,0.9833,0.9753,0.9804,0.9629,0.9881,0.9721,0.9881,0.9825,0.988,0.9826,0.998,0.9947,5.4,1,5.4,3.0
+real_noisy,synthetic_only,0.9864,0.9785,0.9841,0.9747,0.9902,0.9817,0.9902,0.9846,0.9902,0.9839,0.9982,0.9959,4.4,2,4.4,2.0
+real_test,real_only,0.9939,0.9693,0.9908,0.9541,0.9912,0.9559,1.0,1.0,0.9955,0.9775,0.9991,0.9957,4.0,0,0.0,0.0
+real_test,real_plus_synthetic,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0,0.0,0.0
+real_test,synthetic_only,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0,0.0,0.0
