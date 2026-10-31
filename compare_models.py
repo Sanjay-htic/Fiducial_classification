@@ -36,6 +36,8 @@ from sklearn.svm import SVC
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import evaluate_augmentation as ev  # noqa: E402
 
+# Folder of this script: data/ and model/ live next to it
+HERE = os.path.dirname(os.path.abspath(__file__))
 FEATURES = ev.FEATURES
 
 
@@ -126,12 +128,13 @@ def part_b(data_dir, n_jobs, folds=5, blocks=20, seed=42):
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--root", default="/home/htic-nav-sw/Fiducials_Good_Bad")
+    parser.add_argument("--root", default=os.path.dirname(HERE),
+                        help="folder that holds CSV_data/ (default: parent of this script's folder)")
     parser.add_argument("--data-dir", default=None,
-                        help="default: <root>/synthetic_pipeline/data")
+                        help="default: data/ next to this script")
     parser.add_argument("--n-jobs", type=int, default=-1)
     args = parser.parse_args()
-    data_dir = args.data_dir or os.path.join(args.root, "synthetic_pipeline", "data")
+    data_dir = args.data_dir or os.path.join(HERE, "data")
     pd.set_option("display.width", 220)
     pd.set_option("display.max_columns", 40)
 

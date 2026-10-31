@@ -45,6 +45,8 @@ from sklearn.svm import SVC
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import generate_synthetic_fiducials as gen  # noqa: E402
 
+# Folder of this script: data/ and model/ live next to it
+HERE = os.path.dirname(os.path.abspath(__file__))
 FEATURES = ["PointZ", "Radius"]
 PARAM_GRID = {
     "C": [0.1, 1, 10, 100, 1000],
@@ -118,9 +120,10 @@ def score(scaler, model, test):
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--root", default="/home/htic-nav-sw/Fiducials_Good_Bad")
+    parser.add_argument("--root", default=os.path.dirname(HERE),
+                        help="folder that holds CSV_data/ (default: parent of this script's folder)")
     parser.add_argument("--data-dir", default=None,
-                        help="default: <root>/synthetic_pipeline/data")
+                        help="default: data/ next to this script")
     parser.add_argument("--out-dir", default=None, help="default: same as --data-dir")
     parser.add_argument("--folds", type=int, default=5)
     parser.add_argument("--blocks", type=int, default=20,
@@ -136,7 +139,7 @@ def main():
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
-    data_dir = args.data_dir or os.path.join(args.root, "synthetic_pipeline", "data")
+    data_dir = args.data_dir or os.path.join(HERE, "data")
     out_dir = args.out_dir or data_dir
     gen_args = SimpleNamespace(n_per_class=args.n_per_class,
                                n_out_of_range=args.n_out_of_range,

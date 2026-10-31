@@ -1,0 +1,9 @@
+# Only scripts are kept in git. Data and models are made by the scripts.
+data/
+model/
+__pycache__/
+*.pyc
+
+# C++ build output
+cpp/sphere_realtime_inference
+*.o

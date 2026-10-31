@@ -44,6 +44,8 @@ from sklearn.svm import SVC
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import test_on_external as ext  # noqa: E402
 
+# Folder of this script: data/ and model/ live next to it
+HERE = os.path.dirname(os.path.abspath(__file__))
 FEATURES = ["PointZ", "Radius"]
 
 
@@ -56,15 +58,16 @@ def onnx_predict(scaler_session, model_session, X):
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--root", default="/home/htic-nav-sw/Fiducials_Good_Bad")
+    parser.add_argument("--root", default=os.path.dirname(HERE),
+                        help="folder that holds CSV_data/ (default: parent of this script's folder)")
     parser.add_argument("--data-dir", default=None,
-                        help="default: <root>/synthetic_pipeline/data")
+                        help="default: data/ next to this script")
     parser.add_argument("--model-dir", default=None,
-                        help="default: <root>/synthetic_pipeline/model")
+                        help="default: model/ next to this script")
     parser.add_argument("--n-jobs", type=int, default=-1)
     args = parser.parse_args()
-    data_dir = args.data_dir or os.path.join(args.root, "synthetic_pipeline", "data")
-    model_dir = args.model_dir or os.path.join(args.root, "synthetic_pipeline", "model")
+    data_dir = args.data_dir or os.path.join(HERE, "data")
+    model_dir = args.model_dir or os.path.join(HERE, "model")
     os.makedirs(model_dir, exist_ok=True)
 
     # Train
@@ -142,7 +145,7 @@ def main():
         "units": "mm",
         "working_volume_mm": {"min": 700.0, "max": 2800.0,
                               "rule": "PointZ outside the volume is Bad"},
-        "training_file": "synthetic_pipeline/data/real_plus_synthetic.csv",
+        "training_file": "data/real_plus_synthetic.csv",
         "base_reference_files": ["CSV_data/sphere/sphere_good_set_1.csv",
                                  "CSV_data/sphere/sphere_bad_set_1.csv"],
         "training_rows": {"total": len(train), "good": len(good), "bad": len(bad)},
